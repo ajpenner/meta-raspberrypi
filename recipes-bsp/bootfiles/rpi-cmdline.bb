@@ -42,11 +42,23 @@ def setup_isolcpus(d):
 CMDLINE_ISOL_CPUS ?= "${@setup_isolcpus(d)}"
 
 # Add RNDIS capabilities (must be after rootwait)
-# example: 
-# CMDLINE_RNDIS = "modules-load=dwc2,g_ether g_ether.host_addr=<some MAC 
-# address> g_ether.dev_addr=<some MAC address>"
 # if the MAC addresses are omitted, random values will be used
-CMDLINE_RNDIS ?= ""
+
+# Setup the RNDIS configuration
+python () {
+    if bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d) and\
+      d.getVar('ENABLE_DWC2_OTG') == "1" and\
+      d.getVar('ENABLE_RNDIS') == "1":
+        d.appendVar('CMDLINE', "modules-load=dwc2,g_ether")
+
+        # If the user supplies a host or a dev mac address, use it
+        if d.getVar('RNDIS_HOST_MAC_ADDR'):
+            d.appendVar('CMDLINE', " g_ether.host_addr="\
+                + d.getVar('RNDIS_HOST_MAC_ADDR'))
+        if d.getVar('RNDIS_DEV_MAC_ADDR'):
+            d.appendVar('CMDLINE', " g_ether.dev_addr="\
+                + d.getVar('RNDIS_DEV_MAC_ADDR'))
+}
 
 CMDLINE = " \
     ${CMDLINE_ISOL_CPUS} \
@@ -58,7 +70,6 @@ CMDLINE = " \
     ${CMDLINE_LOGO} \
     ${CMDLINE_PITFT} \
     ${CMDLINE_DEBUG} \
-    ${CMDLINE_RNDIS} \
     "
 
 do_compile() {
