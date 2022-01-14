@@ -1,0 +1,10 @@
+[Unit]
+Description=RNDIS
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/rndis/rndis.sh
+
+[Install]
+WantedBy=multi-user.target
