@@ -11,7 +11,17 @@ CMDLINE_DWC_OTG ?= "dwc_otg.lpm_enable=0"
 CMDLINE_ROOT_FSTYPE ?= "rootfstype=ext4"
 CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 ${CMDLINE_ROOT_FSTYPE} rootwait"
 
-CMDLINE_SERIAL ?= "${@oe.utils.conditional("ENABLE_UART", "1", "console=serial0,115200", "", d)}"
+# revert the original serial setup
+def serial_comms(d):
+    string = ""
+    if d.getVar('ENABLE_UART') == "1":
+        string = "console=serial0,115200"
+        if d.getVar('ENABLE_SERIAL_COMMS') == "1":
+            string += " console=tty1"
+
+    return string
+
+CMDLINE_SERIAL ?= "${@serial_comms(d)}"
 
 CMDLINE_CMA ?= "${@oe.utils.conditional("RASPBERRYPI_CAMERA_V2", "1", "cma=64M", "", d)}"
 
@@ -29,12 +39,65 @@ CMDLINE_LOGO ?= '${@oe.utils.conditional("DISABLE_RPI_BOOT_LOGO", "1", "logo.nol
 # to enable kernel debugging.
 CMDLINE_DEBUG ?= ""
 
-# Add RNDIS capabilities (must be after rootwait)
-# example: 
-# CMDLINE_RNDIS = "modules-load=dwc2,g_ether g_ether.host_addr=<some MAC 
-# address> g_ether.dev_addr=<some MAC address>"
+# Add gadget capabilities (must be after rootwait)
 # if the MAC addresses are omitted, random values will be used
-CMDLINE_RNDIS ?= ""
+def setup_gadget_mac(d, gadget_type):
+    string = ""
+    if d.getVar('GADGET_HOST_MAC_ADDR'):
+        string += " " + gadget_type + ".host_addr="\
+          + d.getVar('GADGET_HOST_MAC_ADDR')
+    if d.getVar('GADGET_DEV_MAC_ADDR'):
+        string += " " + gadget_type + ".dev_addr="\
+          + d.getVar('GADGET_DEV_MAC_ADDR')
+    return string
+
+def setup_mass_storage(d, gadget_type):
+    string = ""
+    if d.getVar('GADGET_MASS_STORAGE_NAME'):
+        string += " " + gadget_type + ".file="\
+          + d.getVar('GADGET_MASS_STORAGE_NAME')
+    return string
+
+# Setup the RNDIS configuration
+def setup_gadget_mode(d):
+    string = ""
+    if not bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d)\
+        or d.getVar('ENABLE_DWC2_PERIPHERAL') != "1":
+            return string
+
+    if d.getVar('ENABLE_ETHER_GADGET') == "1":
+        string += "modules-load=dwc2,g_ether"
+
+        # If the user supplies a host or a dev mac address, use it
+        string += setup_gadget_mac(d, "g_ether")
+
+    elif d.getVar('ENABLE_CDC_GADGET') == "1":
+        string += "modules-load=dwc2,g_cdc"
+
+        # If the user supplies a host or a dev mac address, use it
+        string += setup_gadget_mac(d, "g_cdc")
+
+    elif d.getVar('ENABLE_SERIAL_GADGET') == "1":
+        string += "modules-load=dwc2,g_serial"
+
+    elif d.getVar('ENABLE_MULTI_GADGET') == "1":
+        string += "modules-load=dwc2,g_multi"
+
+        # If the user supplies a mass storage name use it
+        string += setup_mass_storage(d, 'g_multi')
+
+        # If the user supplies a host or a dev mac address, use it
+        string += setup_gadget_mac(d, "g_multi")
+
+    elif d.getVar('ENABLE_MASS_STORAGE_GADGET') == "1":
+        string += "modules-load=dwc2,g_mass_storage"
+
+        # If the user supplies a mass storage name use it
+        string += setup_mass_storage(d, 'g_mass_storage')
+
+    return string
+
+CMDLINE_GADGET_MODE ?= "${@setup_gadget_mode(d)}"
 
 CMDLINE = " \
     ${CMDLINE_DWC_OTG} \
@@ -45,7 +108,7 @@ CMDLINE = " \
     ${CMDLINE_LOGO} \
     ${CMDLINE_PITFT} \
     ${CMDLINE_DEBUG} \
-    ${CMDLINE_RNDIS} \
+    ${CMDLINE_GADGET_MODE} \
     "
 
 do_compile() {
