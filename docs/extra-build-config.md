@@ -269,6 +269,18 @@ local.conf:
 
     ENABLE_DWC2_PERIPHERAL = "1"
 
+Note: This setting is incompatible with the ENABLE_DWC2_OTG and ENABLE_DWC2_HOST
+
+## Enable USB OTG (on the go) support
+
+The standard USB driver only supports host mode operations.  Users who
+want to use gadget modules like g_ether and support host mode should set the 
+following in local.conf:
+
+    ENABLE_DWC2_OTG = "1"
+
+Note: This setting is incompatible with the ENABLE_DWC2_PERIPHERAL and ENABLE_DWC2_HOST
+
 ## Enable USB host support
 
 By default in case of the Compute Module 4 IO Board the standard USB driver
@@ -277,6 +289,8 @@ Users who want to use the 2 USB built-in ports or the other ports provided via
 the header extension should set the following in local.conf:
 
     ENABLE_DWC2_HOST = "1"
+
+Note: This setting is incompatible with the ENABLE_DWC2_PERIPHERAL and ENABLE_DWC2_OTG
 
 ## Set CPUs to be isolated from the standard Linux scheduler
 
@@ -289,6 +303,20 @@ The string assigned to this variable may be a single CPU number, a comma
 separated list ("1,2"), a range("1-3"), or a mixture of these ("1,3-5")
 
     ISOLATED_CPUS = "1-2"
+
+## Enable RNDIS communication
+
+Enable the use of ethernet over USB
+
+    ENABLE_RNDIS = "1"
+
+Set the host MAC address when using RNDIS, only used when ENABLE_RNDIS is set
+
+    RNDIS_HOST_MAC_ADDR = "de:ad:be:ef"
+
+Set the dev MAC address when using RNDIS, only used when ENABLE_RNDIS is set
+
+    RNDIS_DEV_MAC_ADDR = "fe:eb:da:ed"
 
 ## Enable Openlabs 802.15.4 radio module
 
