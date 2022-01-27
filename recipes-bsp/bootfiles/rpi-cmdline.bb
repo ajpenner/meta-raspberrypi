@@ -11,7 +11,17 @@ CMDLINE_DWC_OTG ?= "dwc_otg.lpm_enable=0"
 CMDLINE_ROOT_FSTYPE ?= "rootfstype=ext4"
 CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 ${CMDLINE_ROOT_FSTYPE} rootwait"
 
-CMDLINE_SERIAL ?= "${@oe.utils.conditional("ENABLE_UART", "1", "console=serial0,115200", "", d)}"
+# revert the original serial setup
+def serial_comms(d):
+    string = ""
+    if d.getVar('ENABLE_UART') == "1":
+        string = "console=serial0,115200"
+        if d.getVar('ENABLE_SERIAL_COMMS') == "1":
+            string += " console=tty1"
+
+    return string
+
+CMDLINE_SERIAL ?= "${@serial_comms(d)}"
 
 CMDLINE_CMA ?= "${@oe.utils.conditional("RASPBERRYPI_CAMERA_V2", "1", "cma=64M", "", d)}"
 
@@ -41,24 +51,49 @@ def setup_isolcpus(d):
 
 CMDLINE_ISOL_CPUS ?= "${@setup_isolcpus(d)}"
 
-# Add RNDIS capabilities (must be after rootwait)
+# Add gadget capabilities (must be after rootwait)
 # if the MAC addresses are omitted, random values will be used
+def setup_gadget_mac(d, gadget_type):
+    string = ""
+    if d.getVar('GADGET_HOST_MAC_ADDR'):
+        string += " " + gadget_type + ".host_addr="\
+          + d.getVar('GADGET_HOST_MAC_ADDR')
+    if d.getVar('GADGET_DEV_MAC_ADDR'):
+        string += " " + gadget_type + ".dev_addr="\
+          + d.getVar('GADGET_DEV_MAC_ADDR')
+    return string
 
 # Setup the RNDIS configuration
-python () {
-    if bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d) and\
-      d.getVar('ENABLE_DWC2_OTG') == "1" and\
-      d.getVar('ENABLE_RNDIS') == "1":
-        d.appendVar('CMDLINE', "modules-load=dwc2,g_ether")
+def setup_gadget_mode(d):
+    string = ""
+    if not bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d)\
+        or d.getVar('ENABLE_DWC2_PERIPHERAL') != "1":
+            return string
+
+    if d.getVar('ENABLE_ETHER_GADGET') == "1":
+        string += "modules-load=dwc2,g_ether"
 
         # If the user supplies a host or a dev mac address, use it
-        if d.getVar('RNDIS_HOST_MAC_ADDR'):
-            d.appendVar('CMDLINE', " g_ether.host_addr="\
-                + d.getVar('RNDIS_HOST_MAC_ADDR'))
-        if d.getVar('RNDIS_DEV_MAC_ADDR'):
-            d.appendVar('CMDLINE', " g_ether.dev_addr="\
-                + d.getVar('RNDIS_DEV_MAC_ADDR'))
-}
+        string += setup_gadget_mac(d, "g_ether")
+
+    elif d.getVar('ENABLE_CDC_GADGET') == "1":
+        string += "modules-load=dwc2,g_cdc"
+
+        # If the user supplies a host or a dev mac address, use it
+        string += setup_gadget_mac(d, "g_cdc")
+
+    elif d.getVar('ENABLE_SERIAL_GADGET') == "1":
+        string += "modules-load=dwc2,g_serial"
+
+    elif d.getVar('ENABLE_MULTI_GADGET') == "1":
+        string += "modules-load=dwc2,g_multi"
+
+        # If the user supplies a host or a dev mac address, use it
+        string += setup_gadget_mac(d, "g_multi")
+
+    return string
+
+CMDLINE_OTG_COMMS ?= "${@otg_comms(d)}"
 
 CMDLINE = " \
     ${CMDLINE_ISOL_CPUS} \
@@ -70,6 +105,7 @@ CMDLINE = " \
     ${CMDLINE_LOGO} \
     ${CMDLINE_PITFT} \
     ${CMDLINE_DEBUG} \
+    ${CMDLINE_OTG_COMMS} \
     "
 
 do_compile() {

@@ -304,19 +304,31 @@ separated list ("1,2"), a range("1-3"), or a mixture of these ("1,3-5")
 
     ISOLATED_CPUS = "1-2"
 
-## Enable RNDIS communication
+## Enable gadget modes
 
 Enable the use of ethernet over USB
 
-    ENABLE_RNDIS = "1"
+    ENABLE_ETHERNET_GADGET = "1"
 
-Set the host MAC address when using RNDIS, only used when ENABLE_RNDIS is set
+Enable the use of serial over USB
 
-    RNDIS_HOST_MAC_ADDR = "de:ad:be:ef"
+    ENABLE_SERIAL_GADGET = "1"
 
-Set the dev MAC address when using RNDIS, only used when ENABLE_RNDIS is set
+Enable the use of ethernet and serial over USB
 
-    RNDIS_DEV_MAC_ADDR = "fe:eb:da:ed"
+    ENABLE_CDC_GADGET = "1"
+
+Enable the use of ethernet and mass storage over USB
+
+    ENABLE_MULTI_GADGET = "1"
+
+Set the host MAC address when using RNDIS, only used when a gadget mode is enabled
+
+    GADGET_HOST_MAC_ADDR = "de:ad:be:ef:12"
+
+Set the dev MAC address when using RNDIS, only used when a gadget mode is enabled
+
+    GADGET_DEV_MAC_ADDR = "fe:eb:da:ed:12"
 
 ## Enable Openlabs 802.15.4 radio module
 
