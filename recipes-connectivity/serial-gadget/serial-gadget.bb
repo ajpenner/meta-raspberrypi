@@ -16,13 +16,12 @@ do_install() {
 
 	# enable the service
 	ln -sf ${systemd_system_unitdir}/getty@.service \
-		${D}${sysconfdir}/systemd/system/getty.target.wants/getty@ttyGSO.service
+		${D}${sysconfdir}/systemd/system/getty.target.wants/getty@ttyGS0.service
 }
 
 # This is a machine specific file
 FILES:${PN} = "\
     ${sysconfdir}\
 "
-PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-ALLOW_EMPTY:${PN} = "1"
+PACKAGE_ARCH = "${MACHINE_ARCH}"

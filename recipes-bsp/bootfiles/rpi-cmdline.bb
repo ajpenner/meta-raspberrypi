@@ -93,7 +93,7 @@ def setup_gadget_mode(d):
 
     return string
 
-CMDLINE_OTG_COMMS ?= "${@otg_comms(d)}"
+CMDLINE_GADGET_MODE ?= "${@setup_gadget_mode(d)}"
 
 CMDLINE = " \
     ${CMDLINE_ISOL_CPUS} \
@@ -105,7 +105,7 @@ CMDLINE = " \
     ${CMDLINE_LOGO} \
     ${CMDLINE_PITFT} \
     ${CMDLINE_DEBUG} \
-    ${CMDLINE_OTG_COMMS} \
+    ${CMDLINE_GADGET_MODE} \
     "
 
 do_compile() {

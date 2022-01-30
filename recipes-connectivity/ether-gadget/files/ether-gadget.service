@@ -1,0 +1,10 @@
+[Unit]
+Description=Ether_Gadget
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/ether-gadget/ether-gadget.sh
+
+[Install]
+WantedBy=multi-user.target
