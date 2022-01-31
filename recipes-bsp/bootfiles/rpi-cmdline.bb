@@ -63,6 +63,13 @@ def setup_gadget_mac(d, gadget_type):
           + d.getVar('GADGET_DEV_MAC_ADDR')
     return string
 
+def setup_mass_storage(d, gadget_type):
+    string = ""
+    if d.getVar('GADGET_MASS_STORAGE'):
+        string += " " + gadget_type + ".file="\
+          + d.getVar('GADGET_MASS_STORAGE')
+    return string
+
 # Setup the RNDIS configuration
 def setup_gadget_mode(d):
     string = ""
@@ -88,8 +95,17 @@ def setup_gadget_mode(d):
     elif d.getVar('ENABLE_MULTI_GADGET') == "1":
         string += "modules-load=dwc2,g_multi"
 
+        # If the user supplies a mass storage name use it
+        string += setup_mass_storage(d, 'g_multi')
+
         # If the user supplies a host or a dev mac address, use it
         string += setup_gadget_mac(d, "g_multi")
+
+    elif d.getVar('ENABLE_MASS_STORAGE_GADGET') == "1":
+        string += "modules-load=dwc2,g_mass_storage"
+
+        # If the user supplies a mass storage name use it
+        string += setup_mass_storage(d, 'g_mass_storage')
 
     return string
 
