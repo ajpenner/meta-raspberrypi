@@ -65,9 +65,9 @@ def setup_gadget_mac(d, gadget_type):
 
 def setup_mass_storage(d, gadget_type):
     string = ""
-    if d.getVar('GADGET_MASS_STORAGE'):
+    if d.getVar('GADGET_MASS_STORAGE_NAME'):
         string += " " + gadget_type + ".file="\
-          + d.getVar('GADGET_MASS_STORAGE')
+          + d.getVar('GADGET_MASS_STORAGE_NAME')
     return string
 
 # Setup the RNDIS configuration

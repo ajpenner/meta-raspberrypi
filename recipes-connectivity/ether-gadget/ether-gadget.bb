@@ -20,6 +20,14 @@ SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 RDEPENDS:${PN} += "bash"
 
+do_compile() {
+    echo "\taddress ${@d.getVar('GADGET_IP_ADDRESS')}" >> ${WORKDIR}/interfaces
+    echo "\tgateway ${@d.getVar('GADGET_GATEWAY')}" >> ${WORKDIR}/interfaces
+    echo "\tnetmask ${@d.getVar('GADGET_NETMASK')}" >> ${WORKDIR}/interfaces
+    echo "\tnetwork ${@d.getVar('GADGET_NETWORK')}" >> ${WORKDIR}/interfaces
+    echo "\tbroadcast ${@d.getVar('GADGET_BROADCAST')}" >> ${WORKDIR}/interfaces
+}
+
 do_install() {
     install -d ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/ether-gadget.service ${D}${systemd_system_unitdir}/ether-gadget.service

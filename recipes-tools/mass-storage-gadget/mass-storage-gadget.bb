@@ -6,12 +6,14 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;m
 PR = "r5"
 
 S = "${WORKDIR}"
-filename = "piusb.bin"
+filename = "${@d.getVar('GADGET_MASS_STORAGE_NAME')}"
+filesize = "${@d.getVar('GADGET_MASS_STORAGE_SIZE')}"
 
-do_builod() {
+do_compile() {
     # In future we want the name and size from conf/local.conf
-    dd bs=1M if=/dev/zero of="${filename}" count=256
-    mkdosfs "${filename}"
+    dd bs=1M if=/dev/zero of="${filename}" count="${filesize}"
+    # mkdosfs is not part of yocto
+    #mkdosfs "${filename}"
 }
 
 do_install() {
