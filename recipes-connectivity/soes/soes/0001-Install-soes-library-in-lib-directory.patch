@@ -1,0 +1,22 @@
+From 3b6be2cbd7ea47417485ea803f038b0f3bd57207 Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Sun, 6 Feb 2022 09:16:32 +0000
+Subject: [PATCH] Install soes library in lib directory
+
+---
+ soes/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/soes/CMakeLists.txt b/soes/CMakeLists.txt
+index d39dfd9..eec0041 100644
+--- a/soes/CMakeLists.txt
++++ b/soes/CMakeLists.txt
+@@ -19,7 +19,7 @@ add_library (soes
+ 
+ include_directories(${HAL_INCLUDES})
+ 
+-install (TARGETS soes DESTINATION bin)
++install (TARGETS soes DESTINATION lib)
+ install (FILES
+   esc.h
+   esc_coe.h
