@@ -1,0 +1,74 @@
+From 3c6a077e07bdcb8a59b91f1870a9e6a852a36fcc Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Sun, 20 Feb 2022 11:22:29 +0000
+Subject: [PATCH] Make fully preemptable the default config for arm and arm64
+
+  Note: KVM conflicts with RT for 5.10.83
+---
+ arch/arm/configs/bcm2709_defconfig   | 2 +-
+ arch/arm/configs/bcm2711_defconfig   | 2 +-
+ arch/arm/configs/bcmrpi_defconfig    | 2 +-
+ arch/arm64/configs/bcm2711_defconfig | 4 ++--
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index 90810323667d..bdd767c32f74 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -5,7 +5,7 @@ CONFIG_POSIX_MQUEUE=y
+ CONFIG_GENERIC_IRQ_DEBUGFS=y
+ CONFIG_NO_HZ=y
+ CONFIG_HIGH_RES_TIMERS=y
+-CONFIG_PREEMPT_VOLUNTARY=y
++CONFIG_PREEMPT_RT=y
+ CONFIG_BSD_PROCESS_ACCT=y
+ CONFIG_BSD_PROCESS_ACCT_V3=y
+ CONFIG_TASKSTATS=y
+diff --git a/arch/arm/configs/bcm2711_defconfig b/arch/arm/configs/bcm2711_defconfig
+index 6ef776884744..9cfaa3098975 100644
+--- a/arch/arm/configs/bcm2711_defconfig
++++ b/arch/arm/configs/bcm2711_defconfig
+@@ -5,7 +5,7 @@ CONFIG_POSIX_MQUEUE=y
+ CONFIG_GENERIC_IRQ_DEBUGFS=y
+ CONFIG_NO_HZ=y
+ CONFIG_HIGH_RES_TIMERS=y
+-CONFIG_PREEMPT_VOLUNTARY=y
++CONFIG_PREEMPT_RT=y
+ CONFIG_BSD_PROCESS_ACCT=y
+ CONFIG_BSD_PROCESS_ACCT_V3=y
+ CONFIG_TASKSTATS=y
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index 434f4aedd246..6f50af03efa2 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -4,7 +4,7 @@ CONFIG_POSIX_MQUEUE=y
+ CONFIG_GENERIC_IRQ_DEBUGFS=y
+ CONFIG_NO_HZ=y
+ CONFIG_HIGH_RES_TIMERS=y
+-CONFIG_PREEMPT_VOLUNTARY=y
++CONFIG_PREEMPT_RT=y
+ CONFIG_BSD_PROCESS_ACCT=y
+ CONFIG_BSD_PROCESS_ACCT_V3=y
+ CONFIG_TASKSTATS=y
+diff --git a/arch/arm64/configs/bcm2711_defconfig b/arch/arm64/configs/bcm2711_defconfig
+index c3bfafea4815..e959c001af2c 100644
+--- a/arch/arm64/configs/bcm2711_defconfig
++++ b/arch/arm64/configs/bcm2711_defconfig
+@@ -5,7 +5,7 @@ CONFIG_POSIX_MQUEUE=y
+ CONFIG_GENERIC_IRQ_DEBUGFS=y
+ CONFIG_NO_HZ=y
+ CONFIG_HIGH_RES_TIMERS=y
+-CONFIG_PREEMPT=y
++CONFIG_PREEMPT_RT=y
+ CONFIG_BSD_PROCESS_ACCT=y
+ CONFIG_BSD_PROCESS_ACCT_V3=y
+ CONFIG_TASK_XACCT=y
+@@ -56,7 +56,7 @@ CONFIG_CPUFREQ_DT=y
+ CONFIG_ARM_RASPBERRYPI_CPUFREQ=y
+ CONFIG_RASPBERRYPI_FIRMWARE=y
+ CONFIG_VIRTUALIZATION=y
+-CONFIG_KVM=y
++CONFIG_KVM=n
+ CONFIG_CRYPTO_AES_ARM64_BS=m
+ CONFIG_JUMP_LABEL=y
+ CONFIG_MODULES=y
