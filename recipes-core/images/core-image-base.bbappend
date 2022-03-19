@@ -25,3 +25,20 @@ IMAGE_INSTALL += " \
   ether-gadget \
   mass-storage-gadget \
 "
+
+# PREEMPT_RT tests
+IMAGE_INSTALL += " \
+  rt-test \
+"
+
+# libevl
+IMAGE_INSTALL += " \
+  evl-test \
+"
+
+# Utilities to see what is going on
+IMAGE_INSTALL += " \
+  ldd \
+  binutils \
+  gdb \
+"

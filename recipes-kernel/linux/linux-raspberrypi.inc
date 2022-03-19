@@ -19,6 +19,8 @@ SRC_URI += " \
 
 KCONFIG_MODE = "--alldefconfig"
 KBUILD_DEFCONFIG:raspberrypi0-wifi ?= "bcmrpi_defconfig"
+KBUILD_DEFCONFIG:raspberrypi02-2w ?= "bcm2711_defconfig"
+KBUILD_DEFCONFIG:raspberrypi0-2w-64 ?= "bcm2711_defconfig"
 KBUILD_DEFCONFIG:raspberrypi ?= "bcmrpi_defconfig"
 KBUILD_DEFCONFIG:raspberrypi-cm3 ?= "bcm2709_defconfig"
 KBUILD_DEFCONFIG:raspberrypi2 ?= "bcm2709_defconfig"

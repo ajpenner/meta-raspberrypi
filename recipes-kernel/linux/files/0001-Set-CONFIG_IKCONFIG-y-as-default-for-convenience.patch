@@ -1,0 +1,78 @@
+From ccc5217341cde27faaf8982fb0b7cb78c67d52bf Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Wed, 9 Mar 2022 19:02:11 +0000
+Subject: [PATCH] Set CONFIG_IKCONFIG=y as default for convenience
+
+---
+ arch/arm/configs/bcm2709_defconfig   | 2 +-
+ arch/arm/configs/bcm2711_defconfig   | 2 +-
+ arch/arm/configs/bcmrpi_defconfig    | 2 +-
+ arch/arm64/configs/bcm2711_defconfig | 2 +-
+ arch/arm64/configs/bcmrpi3_defconfig | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index 10a7a6640cec..a003c7f587de 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -12,7 +12,7 @@ CONFIG_TASKSTATS=y
+ CONFIG_TASK_DELAY_ACCT=y
+ CONFIG_TASK_XACCT=y
+ CONFIG_TASK_IO_ACCOUNTING=y
+-CONFIG_IKCONFIG=m
++CONFIG_IKCONFIG=y
+ CONFIG_IKCONFIG_PROC=y
+ CONFIG_MEMCG=y
+ CONFIG_BLK_CGROUP=y
+diff --git a/arch/arm/configs/bcm2711_defconfig b/arch/arm/configs/bcm2711_defconfig
+index 65def34f8961..286d17e12b5b 100644
+--- a/arch/arm/configs/bcm2711_defconfig
++++ b/arch/arm/configs/bcm2711_defconfig
+@@ -12,7 +12,7 @@ CONFIG_TASKSTATS=y
+ CONFIG_TASK_DELAY_ACCT=y
+ CONFIG_TASK_XACCT=y
+ CONFIG_TASK_IO_ACCOUNTING=y
+-CONFIG_IKCONFIG=m
++CONFIG_IKCONFIG=y
+ CONFIG_IKCONFIG_PROC=y
+ CONFIG_MEMCG=y
+ CONFIG_BLK_CGROUP=y
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index 7e9ee41db48a..9c3d81600baa 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -11,7 +11,7 @@ CONFIG_TASKSTATS=y
+ CONFIG_TASK_DELAY_ACCT=y
+ CONFIG_TASK_XACCT=y
+ CONFIG_TASK_IO_ACCOUNTING=y
+-CONFIG_IKCONFIG=m
++CONFIG_IKCONFIG=y
+ CONFIG_IKCONFIG_PROC=y
+ CONFIG_MEMCG=y
+ CONFIG_BLK_CGROUP=y
+diff --git a/arch/arm64/configs/bcm2711_defconfig b/arch/arm64/configs/bcm2711_defconfig
+index 338f98f32446..3429d186b9ad 100644
+--- a/arch/arm64/configs/bcm2711_defconfig
++++ b/arch/arm64/configs/bcm2711_defconfig
+@@ -10,7 +10,7 @@ CONFIG_BSD_PROCESS_ACCT=y
+ CONFIG_BSD_PROCESS_ACCT_V3=y
+ CONFIG_TASK_XACCT=y
+ CONFIG_TASK_IO_ACCOUNTING=y
+-CONFIG_IKCONFIG=m
++CONFIG_IKCONFIG=y
+ CONFIG_IKCONFIG_PROC=y
+ CONFIG_MEMCG=y
+ CONFIG_BLK_CGROUP=y
+diff --git a/arch/arm64/configs/bcmrpi3_defconfig b/arch/arm64/configs/bcmrpi3_defconfig
+index 49367c5d5dc7..1dd57f12fe0d 100644
+--- a/arch/arm64/configs/bcmrpi3_defconfig
++++ b/arch/arm64/configs/bcmrpi3_defconfig
+@@ -11,7 +11,7 @@ CONFIG_TASKSTATS=y
+ CONFIG_TASK_DELAY_ACCT=y
+ CONFIG_TASK_XACCT=y
+ CONFIG_TASK_IO_ACCOUNTING=y
+-CONFIG_IKCONFIG=m
++CONFIG_IKCONFIG=y
+ CONFIG_IKCONFIG_PROC=y
+ CONFIG_MEMCG=y
+ CONFIG_BLK_CGROUP=y

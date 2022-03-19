@@ -1,0 +1,61 @@
+From d3014740befa087b757e2926218ff7ed1e69aa0e Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Wed, 9 Mar 2022 20:55:51 +0000
+Subject: [PATCH] enable vdso by default
+
+---
+ arch/arm/configs/bcm2709_defconfig | 4 ++++
+ arch/arm/configs/bcm2711_defconfig | 5 ++++-
+ arch/arm/configs/bcm2835_defconfig | 4 ++++
+ arch/arm/configs/bcmrpi_defconfig  | 4 ++++
+ 4 files changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index ced720f0193a..e559a9b43c3f 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -1566,3 +1566,7 @@ CONFIG_EVL_HECTIC=y
+ #
+ CONFIG_FTRACE=n
+ CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
++#
++# Enable vdso, evl needs it
++#
++CONFIG_VDSO=y
+diff --git a/arch/arm/configs/bcm2711_defconfig b/arch/arm/configs/bcm2711_defconfig
+index 9e91a9fa4a9c..9bfa12426424 100644
+--- a/arch/arm/configs/bcm2711_defconfig
++++ b/arch/arm/configs/bcm2711_defconfig
+@@ -1587,4 +1587,7 @@ CONFIG_EVL_HECTIC=y
+ #
+ CONFIG_FTRACE=n
+ CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+-
++#
++# Enable vdso, evl needs it
++#
++CONFIG_VDSO=y
+diff --git a/arch/arm/configs/bcm2835_defconfig b/arch/arm/configs/bcm2835_defconfig
+index 87da0ab03c52..e3feca0b3672 100644
+--- a/arch/arm/configs/bcm2835_defconfig
++++ b/arch/arm/configs/bcm2835_defconfig
+@@ -196,3 +196,7 @@ CONFIG_STRICT_DEVMEM=y
+ #
+ CONFIG_FTRACE=n
+ CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
++#
++# Enable vdso, evl needs it
++#
++CONFIG_VDSO=y
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index 1cb1f622b2f3..27a35b73158b 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -1561,3 +1561,7 @@ CONFIG_EVL_HECTIC=y
+ #
+ CONFIG_FTRACE=n
+ CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
++#
++# Enable vdso, evl needs it
++#
++CONFIG_VDSO=y

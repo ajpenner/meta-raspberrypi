@@ -1,0 +1,20 @@
+From 8928cf410af3c278a11fbb88a4c8e08636d5fb39 Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Fri, 18 Mar 2022 22:26:10 +0000
+Subject: [PATCH] Enable GENERIC_CLOCKSOURCE_VDSO for RPi4
+
+---
+ arch/arm/configs/bcm2711_defconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/configs/bcm2711_defconfig b/arch/arm/configs/bcm2711_defconfig
+index 9bfa12426424..a4cb1c3a971e 100644
+--- a/arch/arm/configs/bcm2711_defconfig
++++ b/arch/arm/configs/bcm2711_defconfig
+@@ -1590,4 +1590,5 @@ CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+ #
+ # Enable vdso, evl needs it
+ #
+-CONFIG_VDSO=y
++CONFIG_COMPILE_TEST=y
++CONFIG_ARM_GLOBAL_TIMER=y

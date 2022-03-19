@@ -1,0 +1,102 @@
+From d9f63bcf024a37453767ed9656be1b8798e04e2b Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Wed, 9 Mar 2022 20:17:18 +0000
+Subject: [PATCH] Fix incorrect evl kernel config
+
+---
+ arch/arm/configs/bcm2709_defconfig   | 7 ++++++-
+ arch/arm/configs/bcm2711_defconfig   | 6 ++++++
+ arch/arm/configs/bcm2835_defconfig   | 6 ++++++
+ arch/arm/configs/bcmrpi_defconfig    | 6 ++++++
+ arch/arm64/configs/bcm2711_defconfig | 6 ++++++
+ arch/arm64/configs/bcmrpi3_defconfig | 6 ++++++
+ 6 files changed, 36 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index a003c7f587de..ced720f0193a 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -1560,4 +1560,9 @@ CONFIG_EVL_LATENCY_IRQ=0
+ #
+ CONFIG_EVL_LATMUS=y
+ CONFIG_EVL_HECTIC=y
+-
++#
++# evl check reported the following as incorrect
++# so we invert the incorrect selections
++#
++CONFIG_FTRACE=n
++CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+diff --git a/arch/arm/configs/bcm2711_defconfig b/arch/arm/configs/bcm2711_defconfig
+index 286d17e12b5b..9e91a9fa4a9c 100644
+--- a/arch/arm/configs/bcm2711_defconfig
++++ b/arch/arm/configs/bcm2711_defconfig
+@@ -1581,4 +1581,10 @@ CONFIG_EVL_LATENCY_IRQ=0
+ #
+ CONFIG_EVL_LATMUS=y
+ CONFIG_EVL_HECTIC=y
++#
++# evl check reported the following as incorrect
++# so we invert the incorrect selections
++#
++CONFIG_FTRACE=n
++CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+ 
+diff --git a/arch/arm/configs/bcm2835_defconfig b/arch/arm/configs/bcm2835_defconfig
+index 44ff9cd88d81..87da0ab03c52 100644
+--- a/arch/arm/configs/bcm2835_defconfig
++++ b/arch/arm/configs/bcm2835_defconfig
+@@ -190,3 +190,9 @@ CONFIG_KGDB_KDB=y
+ CONFIG_STRICT_DEVMEM=y
+ # CONFIG_XZ_DEC_ARM is not set
+ # CONFIG_XZ_DEC_ARMTHUMB is not set
++#
++# evl check reported the following as incorrect
++# so we invert the incorrect selections
++#
++CONFIG_FTRACE=n
++CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index 9c3d81600baa..1cb1f622b2f3 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -1555,3 +1555,9 @@ CONFIG_EVL_LATENCY_IRQ=0
+ #
+ CONFIG_EVL_LATMUS=y
+ CONFIG_EVL_HECTIC=y
++#
++# evl check reported the following as incorrect
++# so we invert the incorrect selections
++#
++CONFIG_FTRACE=n
++CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+diff --git a/arch/arm64/configs/bcm2711_defconfig b/arch/arm64/configs/bcm2711_defconfig
+index 3429d186b9ad..92a5f5369ee7 100644
+--- a/arch/arm64/configs/bcm2711_defconfig
++++ b/arch/arm64/configs/bcm2711_defconfig
+@@ -1591,4 +1591,10 @@ CONFIG_EVL_LATENCY_IRQ=0
+ #
+ CONFIG_EVL_LATMUS=y
+ CONFIG_EVL_HECTIC=y
++#
++# evl check reported the following as incorrect
++# so we invert the incorrect selections
++#
++CONFIG_FTRACE=n
++CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+ 
+diff --git a/arch/arm64/configs/bcmrpi3_defconfig b/arch/arm64/configs/bcmrpi3_defconfig
+index 1dd57f12fe0d..4b7fe3b0ac67 100644
+--- a/arch/arm64/configs/bcmrpi3_defconfig
++++ b/arch/arm64/configs/bcmrpi3_defconfig
+@@ -1438,4 +1438,10 @@ CONFIG_EVL_LATENCY_IRQ=0
+ #
+ CONFIG_EVL_LATMUS=y
+ CONFIG_EVL_HECTIC=y
++#
++# evl check reported the following as incorrect
++# so we invert the incorrect selections
++#
++CONFIG_FTRACE=n
++CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+ 

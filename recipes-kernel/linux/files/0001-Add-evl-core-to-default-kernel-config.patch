@@ -1,0 +1,211 @@
+From 7dd30707b9a9ae40865bbadd292767e6c7910821 Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Sat, 5 Mar 2022 16:35:34 +0000
+Subject: [PATCH] Add evl core to default kernel config
+
+---
+ arch/arm/configs/bcm2709_defconfig   | 32 ++++++++++++++++++++++++++++
+ arch/arm/configs/bcm2711_defconfig   | 31 +++++++++++++++++++++++++++
+ arch/arm/configs/bcmrpi_defconfig    | 31 +++++++++++++++++++++++++++
+ arch/arm64/configs/bcm2711_defconfig | 32 ++++++++++++++++++++++++++++
+ arch/arm64/configs/bcmrpi3_defconfig | 32 ++++++++++++++++++++++++++++
+ 5 files changed, 158 insertions(+)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index 90810323667d..10a7a6640cec 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -1529,3 +1529,35 @@ CONFIG_IRQSOFF_TRACER=y
+ CONFIG_SCHED_TRACER=y
+ CONFIG_BLK_DEV_IO_TRACE=y
+ # CONFIG_UPROBE_EVENTS is not set
++
++#
++# Kernel Features
++#
++CONFIG_HAVE_DOVETAIL=y
++CONFIG_DOVETAIL=y
++CONFIG_DOVETAIL_LEGACY_SYSCALL_RANGE=y
++CONFIG_HAVE_ARCH_EVL=y
++CONFIG_EVL=y
++CONFIG_EVL_RUNSTATS=y
++#
++# Fixed sizes and limits
++#
++CONFIG_EVL_COREMEM_SIZE=2048
++CONFIG_EVL_NR_THREADS=256
++CONFIG_EVL_NR_MONITORS=512
++CONFIG_EVL_NR_CLOCKS=8
++CONFIG_EVL_NR_XBUFS=16
++CONFIG_EVL_NR_PROXIES=64
++CONFIG_EVL_NR_OBSERVABLES=64
++#
++# Pre-calibrated latency
++#
++CONFIG_EVL_LATENCY_USER=0
++CONFIG_EVL_LATENCY_KERNEL=0
++CONFIG_EVL_LATENCY_IRQ=0
++#
++# Out-of-band device drivers
++#
++CONFIG_EVL_LATMUS=y
++CONFIG_EVL_HECTIC=y
++
+diff --git a/arch/arm/configs/bcm2711_defconfig b/arch/arm/configs/bcm2711_defconfig
+index 6ef776884744..65def34f8961 100644
+--- a/arch/arm/configs/bcm2711_defconfig
++++ b/arch/arm/configs/bcm2711_defconfig
+@@ -1551,3 +1551,34 @@ CONFIG_IRQSOFF_TRACER=y
+ CONFIG_SCHED_TRACER=y
+ CONFIG_BLK_DEV_IO_TRACE=y
+ # CONFIG_UPROBE_EVENTS is not set
++#
++# Kernel Features
++#
++CONFIG_HAVE_DOVETAIL=y
++CONFIG_DOVETAIL=y
++CONFIG_DOVETAIL_LEGACY_SYSCALL_RANGE=y
++CONFIG_HAVE_ARCH_EVL=y
++CONFIG_EVL=y
++CONFIG_EVL_RUNSTATS=y
++#
++# Fixed sizes and limits
++#
++CONFIG_EVL_COREMEM_SIZE=2048
++CONFIG_EVL_NR_THREADS=256
++CONFIG_EVL_NR_MONITORS=512
++CONFIG_EVL_NR_CLOCKS=8
++CONFIG_EVL_NR_XBUFS=16
++CONFIG_EVL_NR_PROXIES=64
++CONFIG_EVL_NR_OBSERVABLES=64
++#
++# Pre-calibrated latency
++#
++CONFIG_EVL_LATENCY_USER=0
++CONFIG_EVL_LATENCY_KERNEL=0
++CONFIG_EVL_LATENCY_IRQ=0
++#
++# Out-of-band device drivers
++#
++CONFIG_EVL_LATMUS=y
++CONFIG_EVL_HECTIC=y
++
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index 434f4aedd246..7e9ee41db48a 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -1524,3 +1524,34 @@ CONFIG_IRQSOFF_TRACER=y
+ CONFIG_SCHED_TRACER=y
+ CONFIG_BLK_DEV_IO_TRACE=y
+ # CONFIG_UPROBE_EVENTS is not set
++
++#
++# Kernel Features
++#
++CONFIG_HAVE_DOVETAIL=y
++CONFIG_DOVETAIL=y
++CONFIG_DOVETAIL_LEGACY_SYSCALL_RANGE=y
++CONFIG_HAVE_ARCH_EVL=y
++CONFIG_EVL=y
++CONFIG_EVL_RUNSTATS=y
++#
++# Fixed sizes and limits
++#
++CONFIG_EVL_COREMEM_SIZE=2048
++CONFIG_EVL_NR_THREADS=256
++CONFIG_EVL_NR_MONITORS=512
++CONFIG_EVL_NR_CLOCKS=8
++CONFIG_EVL_NR_XBUFS=16
++CONFIG_EVL_NR_PROXIES=64
++CONFIG_EVL_NR_OBSERVABLES=64
++#
++# Pre-calibrated latency
++#
++CONFIG_EVL_LATENCY_USER=0
++CONFIG_EVL_LATENCY_KERNEL=0
++CONFIG_EVL_LATENCY_IRQ=0
++#
++# Out-of-band device drivers
++#
++CONFIG_EVL_LATMUS=y
++CONFIG_EVL_HECTIC=y
+diff --git a/arch/arm64/configs/bcm2711_defconfig b/arch/arm64/configs/bcm2711_defconfig
+index c3bfafea4815..338f98f32446 100644
+--- a/arch/arm64/configs/bcm2711_defconfig
++++ b/arch/arm64/configs/bcm2711_defconfig
+@@ -1560,3 +1560,35 @@ CONFIG_IRQSOFF_TRACER=y
+ CONFIG_SCHED_TRACER=y
+ CONFIG_BLK_DEV_IO_TRACE=y
+ # CONFIG_UPROBE_EVENTS is not set
++
++#
++# Kernel Features
++#
++CONFIG_HAVE_DOVETAIL=y
++CONFIG_DOVETAIL=y
++CONFIG_DOVETAIL_LEGACY_SYSCALL_RANGE=y
++CONFIG_HAVE_ARCH_EVL=y
++CONFIG_EVL=y
++CONFIG_EVL_RUNSTATS=y
++#
++# Fixed sizes and limits
++#
++CONFIG_EVL_COREMEM_SIZE=2048
++CONFIG_EVL_NR_THREADS=256
++CONFIG_EVL_NR_MONITORS=512
++CONFIG_EVL_NR_CLOCKS=8
++CONFIG_EVL_NR_XBUFS=16
++CONFIG_EVL_NR_PROXIES=64
++CONFIG_EVL_NR_OBSERVABLES=64
++#
++# Pre-calibrated latency
++#
++CONFIG_EVL_LATENCY_USER=0
++CONFIG_EVL_LATENCY_KERNEL=0
++CONFIG_EVL_LATENCY_IRQ=0
++#
++# Out-of-band device drivers
++#
++CONFIG_EVL_LATMUS=y
++CONFIG_EVL_HECTIC=y
++
+diff --git a/arch/arm64/configs/bcmrpi3_defconfig b/arch/arm64/configs/bcmrpi3_defconfig
+index a86ef9c5ee4d..49367c5d5dc7 100644
+--- a/arch/arm64/configs/bcmrpi3_defconfig
++++ b/arch/arm64/configs/bcmrpi3_defconfig
+@@ -1407,3 +1407,35 @@ CONFIG_STACK_TRACER=y
+ CONFIG_IRQSOFF_TRACER=y
+ CONFIG_SCHED_TRACER=y
+ CONFIG_BLK_DEV_IO_TRACE=y
++
++#
++# Kernel Features
++#
++CONFIG_HAVE_DOVETAIL=y
++CONFIG_DOVETAIL=y
++CONFIG_DOVETAIL_LEGACY_SYSCALL_RANGE=y
++CONFIG_HAVE_ARCH_EVL=y
++CONFIG_EVL=y
++CONFIG_EVL_RUNSTATS=y
++#
++# Fixed sizes and limits
++#
++CONFIG_EVL_COREMEM_SIZE=2048
++CONFIG_EVL_NR_THREADS=256
++CONFIG_EVL_NR_MONITORS=512
++CONFIG_EVL_NR_CLOCKS=8
++CONFIG_EVL_NR_XBUFS=16
++CONFIG_EVL_NR_PROXIES=64
++CONFIG_EVL_NR_OBSERVABLES=64
++#
++# Pre-calibrated latency
++#
++CONFIG_EVL_LATENCY_USER=0
++CONFIG_EVL_LATENCY_KERNEL=0
++CONFIG_EVL_LATENCY_IRQ=0
++#
++# Out-of-band device drivers
++#
++CONFIG_EVL_LATMUS=y
++CONFIG_EVL_HECTIC=y
++
