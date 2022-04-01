@@ -1,0 +1,29 @@
+From 857bf0e5539bc26fb0021f1533086e20e597ef9d Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Sun, 20 Mar 2022 18:27:58 +0000
+Subject: [PATCH] enable vdso for rpi0
+
+---
+ arch/arm/configs/bcmrpi_defconfig | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index 27a35b73158b..a24a5f23e9ea 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -1565,3 +1565,15 @@ CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+ # Enable vdso, evl needs it
+ #
+ CONFIG_VDSO=y
++#
++# We need to enable below
++# Otherwise armv6 rejects
++# VDSO
++#
++CONFIG_AEABI=y
++CONFIG_MMU=y
++CONFIG_CPU_V7=y
++CONFIG_ARM_ARCH_TIMER=y
++CONFIG_ARCH_MULTI_V7=y
++CONFIG_COMPILE_TEST=y
++CONFIG_ARM_GLOBAL_TIMER=y

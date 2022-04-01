@@ -11,7 +11,17 @@ CMDLINE_DWC_OTG ?= "dwc_otg.lpm_enable=0"
 CMDLINE_ROOT_FSTYPE ?= "rootfstype=ext4"
 CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 ${CMDLINE_ROOT_FSTYPE} rootwait"
 
-CMDLINE_SERIAL ?= "${@oe.utils.conditional("ENABLE_UART", "1", "console=serial0,115200", "", d)}"
+# revert the original serial setup
+def serial_comms(d):
+    string = ""
+    if d.getVar('ENABLE_UART') == "1":
+        string = "console=serial0,115200"
+        if d.getVar('ENABLE_SERIAL_COMMS') == "1":
+            string += " console=tty1"
+
+    return string
+
+CMDLINE_SERIAL ?= "${@serial_comms(d)}"
 
 CMDLINE_CMA ?= "${@oe.utils.conditional("RASPBERRYPI_CAMERA_V2", "1", "cma=64M", "", d)}"
 

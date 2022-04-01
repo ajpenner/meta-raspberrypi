@@ -29,6 +29,7 @@ IMAGE_INSTALL += " \
 # PREEMPT_RT tests
 IMAGE_INSTALL += " \
   rt-test \
+  fibonacci \
 "
 
 # libevl
