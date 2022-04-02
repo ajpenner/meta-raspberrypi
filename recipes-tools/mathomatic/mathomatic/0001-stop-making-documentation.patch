@@ -1,0 +1,22 @@
+From a70f0604b55c7b1c49fed91a84bf8b7058265092 Mon Sep 17 00:00:00 2001
+From: Andrew Penner <andrew.penner@protonmail.com>
+Date: Sat, 2 Apr 2022 19:21:55 +0100
+Subject: [PATCH] stop making documentation
+
+---
+ makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/makefile b/makefile
+index 9e82c15..b268ac6 100644
+--- a/makefile
++++ b/makefile
+@@ -123,7 +123,7 @@ TEXT_DOCS	?= VERSION AUTHORS COPYING README.txt NEWS
+ PDFDOC		= manual.pdf	# Name of PDF file containing the Mathomatic User Guide and Command Reference.
+ PDFMAN		= bookman.pdf	# Name of PDF file containing all the Mathomatic man pages.
+ 
+-all static: $(AOUT) html NEWS # make these by default
++all static: $(AOUT) # make these by default
+ 
+ # Make sure the HTML man pages are up-to-date.
+ html: $(MANHTML)
