@@ -29,7 +29,8 @@ IMAGE_INSTALL += " \
 # PREEMPT_RT tests
 IMAGE_INSTALL += " \
   rt-test \
-  fibonacci \
+  mathomatic \
+  python3 \
 "
 
 # libevl
@@ -42,4 +43,9 @@ IMAGE_INSTALL += " \
   ldd \
   binutils \
   gdb \
+  htop \
+"
+
+# Add cgroups
+IMAGE_INSTALL += " \
 "
