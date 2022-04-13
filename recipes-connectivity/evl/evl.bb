@@ -6,12 +6,12 @@ SUMMARY = "Lib evl recipe"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
-SRCREV="f74628100996d90614fa39936ffd76e15ae26d69"
+SRCREV="b25e1fe4192db9ac97a8612a32b3e3d2a338e6d0"
 
 S = "${WORKDIR}/git"
 
 SRC_URI = " \
-    git://github.com/ajpenner/libevl.git;branch=master;protocol=git \
+    git://git@source.denx.de/Xenomai/xenomai4/libevl.git;branch=master;protocol=https; \
 "
 
 inherit meson
@@ -172,6 +172,33 @@ FILES:${PN}-dev = " \
   /usr/evl/include/eshi/clock.h \
   /usr/evl/include/eshi/syscall.h \
   /usr/evl/lib/pkgconfig/evl.pc \
+  /usr/evl/include/uapi/evl/signal.h \
+  /usr/evl/include/uapi/evl/trace.h \
+  /usr/evl/include/uapi/evl/observable.h \
+  /usr/evl/include/uapi/evl/poll.h \
+  /usr/evl/include/uapi/evl/thread.h \
+  /usr/evl/include/uapi/evl/mutex.h \
+  /usr/evl/include/uapi/evl/control.h \
+  /usr/evl/include/uapi/evl/types.h \
+  /usr/evl/include/uapi/evl/proxy.h \
+  /usr/evl/include/uapi/evl/sched.h \
+  /usr/evl/include/uapi/evl/factory.h \
+  /usr/evl/include/uapi/evl/monitor.h \
+  /usr/evl/include/uapi/evl/fcntl.h \
+  /usr/evl/include/uapi/evl/syscall.h \
+  /usr/evl/include/uapi/evl/xbuf.h \
+  /usr/evl/include/uapi/evl/devices/gpio.h \
+  /usr/evl/include/uapi/evl/devices/hectic.h \
+  /usr/evl/include/uapi/evl/devices/spidev.h \
+  /usr/evl/include/uapi/evl/devices/latmus.h \
+  /usr/evl/include/uapi/evl/net/sched.h \
+  /usr/evl/include/uapi/evl/net/socket.h \
+  /usr/evl/include/uapi/evl/gpio.h \
+  /usr/evl/include/uapi/evl/hectic.h \
+  /usr/evl/include/uapi/evl/spidev.h \
+  /usr/evl/include/uapi/evl/latmus.h \
+  /usr/evl/include/uapi/evl/socket.h \
+  /usr/evl/include/uapi/evl/clock.h \
 "
 
 FILES:${PN}-staticdev = " \
